@@ -2,6 +2,7 @@ package business;
 
 import entity.Account;
 import entity.User;
+import org.springframework.web.bind.annotation.GetMapping;
 import repository.LoginRepo;
 
 public class LoginService {
@@ -11,6 +12,7 @@ public class LoginService {
         this.loginRepo = loginRepo;
     }
 
+    @GetMapping("/attemptLogin") // localhost:8080/attemptLogin
     public User attemptLogin(String username, String password){
         Account toBeLoggedIn = new Account(username,password);
         User user = loginRepo.attemptLogin(toBeLoggedIn);

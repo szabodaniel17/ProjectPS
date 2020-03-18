@@ -3,6 +3,7 @@ package entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -32,4 +33,19 @@ public abstract class User {
         id = UUID.randomUUID().toString();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return id.equals(user.id) &&
+                name.equals(user.name) &&
+                dateOfBirth.equals(user.dateOfBirth) &&
+                account.equals(user.account);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, dateOfBirth, account);
+    }
 }
