@@ -3,12 +3,13 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-    <persistence-unit name="studhub" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="gymdb" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <properties>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/studhub"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/gymdb"/>
             <property name="hibernate.connection.username" value="root"/>
-            <property name="hibernate.connection.password" value="password"/>
+            <property name="hibernate.connection.password" value="root"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
             <property name="hibernate.connection.autocommit" value="false"/>
             <property name="hibernate.connection.CharSet" value="utf8"/>

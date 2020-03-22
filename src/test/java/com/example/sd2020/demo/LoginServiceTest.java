@@ -1,22 +1,15 @@
 package com.example.sd2020.demo;
 
 import business.LoginService;
-import entity.Account;
-import entity.Teacher;
-import entity.User;
 import org.junit.Before;
 import org.junit.Rule;
-import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import repository.LoginRepo;
 
-import java.util.Date;
-
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 public class LoginServiceTest {
     @Mock
@@ -31,7 +24,7 @@ public class LoginServiceTest {
         loginService = new LoginService(loginRepo);
     };
 
-    @Test
+/*    @Test
     public void testAttemptLoginSuccessful(){
         Account account = new Account("abc","1234");
         User expected = new Teacher("Ion",new Date(),account);
@@ -50,6 +43,6 @@ public class LoginServiceTest {
         User result = loginService.attemptLogin("abc","1234");
         assertEquals(null,result);
         verify(loginRepo).attemptLogin(account);
-    }
+    }*/
 
 }

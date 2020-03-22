@@ -1,7 +1,5 @@
 package repository;
 
-import com.example.sd2020.demo.Konstants;
-import entity.Account;
 import entity.User;
 
 import javax.persistence.EntityManager;
@@ -9,8 +7,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-public class LoginRepository implements LoginRepo{
-    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(Konstants.DB_NAME);
+public class LoginRepository{
+    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("gymdb");
     private static LoginRepository singletone = null;
 
     private LoginRepository(){};
@@ -51,32 +49,32 @@ public class LoginRepository implements LoginRepo{
         return "Success!";
     }
 
-    public String addAccount(Account account){
-        /**
+    /*public String addAccount(Account account){
+        *//**
          * Pentru fiecare metoda se instantiaza un entiy manager din EMF-ul de mai sus.
-         */
+         *//*
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        /**
+        *//**
          * Denota ca incepe o operatie pe baza de date
-         */
+         *//*
         entityManager.getTransaction().begin();
-        /**
+        *//**
          * Declaram operatia sau operatiile ce se vor face pe BD.
-         */
-        /*Account existingAcc = entityManager.find(Account.class, account.username);
+         *//*
+        *//*Account existingAcc = entityManager.find(Account.class, account.username);
         if(existingAcc != null){
             entityManager.getTransaction().commit();
             entityManager.close();
             return "Username already exists!";
-        }*/
+        }*//*
         entityManager.merge(account);
-        /**
+        *//**
          * Executam operatia.
-         */
+         *//*
         entityManager.getTransaction().commit();
-        /**
+        *//**
          * Inchidem EM-ul. Ca la operatii pe fisiere, il deschizi, il citesti si in final il inchizi.
-         */
+         *//*
         entityManager.close();
         return "Success!";
     }
@@ -116,4 +114,5 @@ public class LoginRepository implements LoginRepo{
         User student = (User) q.getResultList().get(0);
         return student;
     }
+*/
 }
