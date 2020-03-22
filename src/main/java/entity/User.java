@@ -19,20 +19,21 @@ public abstract class User {
     @Column
     public String phoneNumber;
 
-    /*
+
     @OneToOne
     @JoinColumn(name="username")
-    public Account account;*/
+    public Account account;
 
     User(){
         dateOfBirth = new Date();
         id = UUID.randomUUID().toString();
     }
 
-    User(String name, Date dateOfBirth,String phoneNumber) {
+    User(String name, Date dateOfBirth,String phoneNumber,Account account) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.phoneNumber = phoneNumber;
+        this.account = account;
         id = UUID.randomUUID().toString();
     }
 

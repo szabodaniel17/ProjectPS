@@ -1,5 +1,6 @@
 package repository;
 
+import entity.Account;
 import entity.User;
 
 import javax.persistence.EntityManager;
@@ -9,110 +10,45 @@ import javax.persistence.Query;
 
 public class LoginRepository{
     private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("gymdb");
-    private static LoginRepository singletone = null;
 
-    private LoginRepository(){};
+    public LoginRepository(){};
 
-    public static LoginRepository getInstance(){
-        if(singletone == null)
-            singletone = new LoginRepository();
-        return singletone;
-    }
-
-    public String addUser(User user){
-        /**
-         * Pentru fiecare metoda se instantiaza un entiy manager din EMF-ul de mai sus.
-         */
+    /**
+     * Aceasta metoda este folosita pentru a verifica credentialele unui account.
+     * Folosind metoda find din EntityManager, vom cauta in baza de date username-ul,
+     * apoi parola, si daca ambele vor fi gasite, vom cauta user-ul legat la eles.
+     * @param account
+     * @return
+     */
+    public User checkLogin(Account account){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        /**
-         * Denota ca incepe o operatie pe baza de date
-         */
-        entityManager.getTransaction().begin();
-        /**
-         * Declaram operatia sau operatiile ce se vor face pe BD.
-         */
-        User existingUser = entityManager.find(User.class, user.id);
-        if(existingUser != null){
-            entityManager.getTransaction().commit();
-            entityManager.close();
-            return "Username already exists!";
-        }
-        entityManager.merge(user);
-        /**
-         * Executam operatia.
-         */
-        entityManager.getTransaction().commit();
-        /**
-         * Inchidem EM-ul. Ca la operatii pe fisiere, il deschizi, il citesti si in final il inchizi.
-         */
-        entityManager.close();
-        return "Success!";
-    }
 
-    /*public String addAccount(Account account){
-        *//**
-         * Pentru fiecare metoda se instantiaza un entiy manager din EMF-ul de mai sus.
-         *//*
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        *//**
-         * Denota ca incepe o operatie pe baza de date
-         *//*
         entityManager.getTransaction().begin();
-        *//**
-         * Declaram operatia sau operatiile ce se vor face pe BD.
-         *//*
-        *//*Account existingAcc = entityManager.find(Account.class, account.username);
-        if(existingAcc != null){
-            entityManager.getTransaction().commit();
-            entityManager.close();
-            return "Username already exists!";
-        }*//*
-        entityManager.merge(account);
-        *//**
-         * Executam operatia.
-         *//*
-        entityManager.getTransaction().commit();
-        *//**
-         * Inchidem EM-ul. Ca la operatii pe fisiere, il deschizi, il citesti si in final il inchizi.
-         *//*
-        entityManager.close();
-        return "Success!";
-    }
 
-    @Override
-    public User attemptLogin(Account account) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        Account toFind = entityManager.find(Account.class, account.getUsername());
-        entityManager.getTransaction().commit();
-
-        if(toFind == null){
+        Account matchAccount = entityManager.find(Account.class,account.getUsername());
+        if(matchAccount == null){
             entityManager.close();
-            return null;
-        }
-        if(!toFind.getPassword().equals(account.getPassword())){
-            entityManager.close();
+            System.out.println("User not found");
             return null;
         }
 
-        User user = searchUser(entityManager,toFind);
+        if(!account.getPassword().equals(matchAccount.getPassword())) {
+            entityManager.close();
+            System.out.println("Passwords don't match");
+            return null;
+        }
+
+        Query q = entityManager.createQuery("SELECT u FROM user u WHERE username = '" + account.getUsername()+"'");
+        entityManager.getTransaction().commit();
+        User user = (User) q.getResultList().get(0);
+
         entityManager.close();
+
+        if(user == null)
+            return null;
+
+        System.out.println("Login was successful");
         return user;
     }
 
-    private User searchUser(EntityManager entityManager, Account founded){
-        entityManager.getTransaction().begin();
-        Query q = entityManager.createQuery("SELECT t FROM Teachers t WHERE username = '" + founded.getUsername()+"'");
-        entityManager.getTransaction().commit();
-        User teacher = (User) q.getResultList().get(0);
-        if(teacher != null)
-            return teacher;
-
-        entityManager.getTransaction().begin();
-        q = entityManager.createQuery("SELECT s FROM Students s WHERE username = '" + founded.getUsername()+"'");
-        entityManager.getTransaction().commit();
-        User student = (User) q.getResultList().get(0);
-        return student;
-    }
-*/
 }
