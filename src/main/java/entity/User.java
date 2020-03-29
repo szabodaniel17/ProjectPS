@@ -20,7 +20,7 @@ public abstract class User {
     public String phoneNumber;
 
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="username")
     public Account account;
 

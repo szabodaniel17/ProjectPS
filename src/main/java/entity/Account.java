@@ -10,7 +10,7 @@ public class Account {
     @Column
     private String password;
 
-    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private User user;
 
     public Account(){}
@@ -38,5 +38,14 @@ public class Account {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", user=" + user +
+                '}';
     }
 }

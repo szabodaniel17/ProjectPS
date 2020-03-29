@@ -8,7 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-public class LoginRepository{
+public class LoginRepository implements LoginInterface{
     private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("gymdb");
 
     public LoginRepository(){};

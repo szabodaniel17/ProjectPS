@@ -4,7 +4,6 @@ import entity.Account;
 import entity.User;
 
 public interface LoginInterface {
-
     /**
      * Interfata creata pentru a prelua functionalitatile clasei LoginRepository.
      * Astfel, prin aceasta interfata vom realiza Design Pattern-ul Facade, afisand doar functionalitatile
@@ -14,4 +13,5 @@ public interface LoginInterface {
      * admin sau trainer.
      */
      User checkLogin(Account account);
+
 }
