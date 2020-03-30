@@ -11,10 +11,13 @@ Problema de rezolvat o reprezinta implementarea unei aplicatii in vederea gestio
  
 ## Implementare
 In baza de date avem tabela de traineri si de admini precum si tabela de account-uri. Tabelele de admini si traineri sunt unificate prin tabela de user, care are o conexiune de one-to-one cu tabela de account prin campul de username.
+![](DBdiagram.png)
 
 ### Todos
 
- - Write MORE Tests
+ - Mai multe unit teste
+ - Implementare clase entity si service pentru FoodItems si Exercise
+ - Implementare metode TrainerService
  
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
