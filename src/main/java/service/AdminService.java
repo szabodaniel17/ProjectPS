@@ -1,6 +1,8 @@
 package service;
 
 import entity.Account;
+import entity.Exercise;
+import entity.Trainer;
 import entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +15,10 @@ import java.util.List;
 @Controller
 public class AdminService {
     private AdminInterface adminRepo;
+    private List<TrainerManagement> trainerManagement = new ArrayList<>();
+    private Exercise exercise;
 
+    public AdminService(){}
     public AdminService(AdminInterface adminRepo){ this.adminRepo = adminRepo;}
 
     @GetMapping("/getAllUsers")
@@ -67,5 +72,18 @@ public class AdminService {
         return "Success";
     }
 
+    public void addObserver(TrainerManagement trainerManagement) {
+        this.trainerManagement.add(trainerManagement);
+    }
 
+    public void removeObserver(TrainerManagement channel) {
+        this.trainerManagement.remove(channel);
+    }
+
+    public void setExercise(Exercise exercise) {
+        this.exercise = exercise;
+        for (TrainerManagement trainerManagement : this.trainerManagement) {
+            trainerManagement.update(this.exercise);
+        }
+    }
 }

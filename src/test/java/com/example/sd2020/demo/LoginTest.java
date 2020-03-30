@@ -38,6 +38,7 @@ public class LoginTest {
     public void testLoginSucces(){
         Account account = new Account("admin","admin");
         User expected = new Admin("Admin",new Date(),"021 361 622",account);
+
         when(loginRepo.checkLogin(account)).thenReturn(expected);
         User result = loginService.checkLogin("admin","admin");
         assertEquals(expected,result);
@@ -47,6 +48,7 @@ public class LoginTest {
     public void testLoginFail(){
         Account account = new Account("admin","admin");
         User result = loginService.checkLogin("admin","admin");
+
         when(loginRepo.checkLogin(account)).thenReturn(null);
         assertEquals(null,result);
     }
