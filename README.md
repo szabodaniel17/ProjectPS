@@ -11,6 +11,7 @@ Problema de rezolvat o reprezinta implementarea unei aplicatii in vederea gestio
  
 ## Implementare
 In baza de date avem tabela de traineri si de admini precum si tabela de account-uri. Tabelele de admini si traineri sunt unificate prin tabela de user, care are o conexiune de one-to-one cu tabela de account prin campul de username.
+
 ![](DBdiagram.png)
 
 ### Todos
