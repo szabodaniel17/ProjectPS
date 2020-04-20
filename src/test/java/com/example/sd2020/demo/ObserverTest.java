@@ -13,9 +13,9 @@ public class ObserverTest {
     public void testObserver(){
         AdminService observable = new AdminService();
         TrainerService observer = new TrainerService();
-        Exercise ex = new Exercise("flotari");
+        Exercise ex = new Exercise("flotari","10-12 reps",4,"2 mins");
         observable.addObserver(observer);
-        observable.setExercise(new Exercise("flotari"));
+        observable.setExercise(new Exercise("flotari","10-12 reps",4,"2 mins"));
         assertEquals(observer.getExercise(),ex);
     }
 

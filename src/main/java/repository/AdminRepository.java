@@ -66,7 +66,11 @@ public class AdminRepository implements AdminInterface {
             entityManager.close();
             return "Username already exists";
         }
-
+        /**
+         * Metoda merge din EntityManager este o metoda de adaugare si actualizare in baza de date.
+         * Astfel, daca vom gresi si apoi vom incerca sa readaugam acelasi user, nu vom avea erori,
+         * ci acesta va fi actualizat.
+         * */
         entityManager.merge(account);
         entityManager.merge(user);
 
@@ -77,6 +81,17 @@ public class AdminRepository implements AdminInterface {
         return "Account has been created succesfully";
     }
 
+    /**
+     * Aceasta metoda este folosita pentru a actualiza un user in baza de date.
+     * Account-ul va fi cautat dupa username in baza de date. Daca il gasim, acesta va
+     * fi actualizat si vom returna un mesaj corespunzator.
+     * Daca nu gasim un account in baza de date cu aceste credentiale, vom
+     * returna un mesaj corespunzator.
+     *
+     * @param user
+     * @param account
+     * @return
+     */
     public String updateUser(User user, Account account){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
@@ -100,6 +115,15 @@ public class AdminRepository implements AdminInterface {
         return "Account has been modified succesfully";
     }
 
+    /**
+     * Aceasta metoda este folosita pentru a sterge un cont din baza de
+     * date, pe baza username-ului unic. Vom cauta username-ul in baza
+     * de date. Daca il vom gasi, acesta va fi sters, altfel va fi afisat
+     * un mesaj corespunzator care indica lipsa acestuia in baza de date.
+     *
+     * @param username
+     * @return
+     */
     public String removeUser(String username){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
@@ -110,7 +134,10 @@ public class AdminRepository implements AdminInterface {
             entityManager.close();
             return "The user does not exist!";
         }
-
+        /**
+         * Metoda remove din EntityManager este echivalenta cu o interogare SQL
+         * de DELETE.
+         * */
         entityManager.remove(toFind);
 
         entityManager.getTransaction().commit();
@@ -119,6 +146,8 @@ public class AdminRepository implements AdminInterface {
 
         return "Account has been removed";
     }
+
+
 
     public String addFoodItems(){
         return "Success!";

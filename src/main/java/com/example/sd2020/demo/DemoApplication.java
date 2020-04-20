@@ -21,7 +21,7 @@ public class DemoApplication {
 
 	public static void main(String[] args) {
 		//EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("gymdb");
-		LoginRepository loginRepo = new LoginRepository();
+		/*LoginRepository loginRepo = new LoginRepository();
 		LoginService serv = new LoginService(loginRepo);
 		AdminRepository admin = new AdminRepository();
 		Account a1 = new Account("admin","admin");
@@ -34,7 +34,7 @@ public class DemoApplication {
 		ArrayList<Account> a = (ArrayList<Account>) admin.getAllAccounts();
 		System.out.println(a.toString());
 		System.out.println(test.equals(t2));
-		System.out.println(test.toString()+"\n" + test1.toString());
+		System.out.println(test.toString()+"\n" + test1.toString());*/
 		SpringApplication.run(DemoApplication.class, args);
 
 	}
