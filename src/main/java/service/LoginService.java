@@ -14,6 +14,14 @@ public class LoginService {
         this.loginRepo = loginRepo;
     }
 
+
+    /**
+     * Entry point pentru verificarea credentialelor unui user din baza de date.
+     *
+     * @param username
+     * @param password
+     * @return
+     */
     @GetMapping("/checkLogin") // localhost:8080/checkLogin
     public User checkLogin(String username, String password){
         Account loginAttempt = new Account(username,password);

@@ -1,9 +1,6 @@
 package service;
 
-import entity.Account;
-import entity.Exercise;
-import entity.Trainer;
-import entity.User;
+import entity.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import repository.AdminInterface;
@@ -16,10 +13,10 @@ import java.util.List;
 public class AdminService {
     private AdminInterface adminRepo;
     private List<TrainerManagement> trainerManagement = new ArrayList<>();
-    private Exercise exercise;
 
     public AdminService(){}
     public AdminService(AdminInterface adminRepo){ this.adminRepo = adminRepo;}
+
 
     @GetMapping("/getAllUsers")
     public List<Account> getAllUsers(){
@@ -53,23 +50,46 @@ public class AdminService {
     }
 
     @GetMapping("/addFoodItems")
-    public String addFoodItems(){
-        return "Success";
+    public String addFoodItems(FoodItem foodItem){
+        String result;
+        result = adminRepo.addFoodItems(foodItem);
+        return result;
     }
 
     @GetMapping("/addExercises")
-    public String addExercises(){
-        return "Success";
+    public String addExercises(Exercise exercise){
+        String result;
+        result = adminRepo.addExercises(exercise);
+        this.setExercise(exercise);
+        return result;
     }
 
     @GetMapping("/removeFoodItems")
-    public String removeFoodItems(){
-        return "Success";
+    public String removeFoodItems(FoodItem foodItem){
+        String result;
+        result = adminRepo.removeFoodItems(foodItem);
+        return result;
+    }
+
+    @GetMapping("/updateFoodItem")
+    public String updateFoodItem(FoodItem foodItem){
+        String result;
+        result = adminRepo.updateFoodItems(foodItem);
+        return result;
+    }
+
+    @GetMapping("/updateExercise")
+    public String updateExercise(Exercise exercise){
+        String result;
+        result = adminRepo.updateExercises(exercise);
+        return result;
     }
 
     @GetMapping("/removeExercises")
-    public String removeExercises(){
-        return "Success";
+    public String removeExercises(Exercise exercise){
+        String result;
+        result = adminRepo.removeExercises(exercise);
+        return result;
     }
 
     public void addObserver(TrainerManagement trainerManagement) {
@@ -81,9 +101,8 @@ public class AdminService {
     }
 
     public void setExercise(Exercise exercise) {
-        this.exercise = exercise;
         for (TrainerManagement trainerManagement : this.trainerManagement) {
-            trainerManagement.update(this.exercise);
+            trainerManagement.update(exercise);
         }
     }
 }

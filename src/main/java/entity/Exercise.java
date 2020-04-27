@@ -3,13 +3,18 @@ package entity;
 import javax.persistence.*;
 import java.util.*;
 
-
+@Entity(name = "exercise")
 public class Exercise {
 
+    @Id
     private final String id;
+    @Column
     private String name;
+    @Column
     private String reps;
+    @Column
     private Integer sets;
+    @Column
     private String restTime;
 
     Exercise(){
@@ -29,8 +34,7 @@ public class Exercise {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Exercise exercise = (Exercise) o;
-        return Objects.equals(id, exercise.id) &&
-                Objects.equals(name, exercise.name) &&
+        return Objects.equals(name, exercise.name) &&
                 Objects.equals(reps, exercise.reps) &&
                 Objects.equals(sets, exercise.sets);
     }
@@ -70,5 +74,15 @@ public class Exercise {
 
     public void setRestTime(String restTime) {
         this.restTime = restTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Exercise{" +
+                "name='" + name + '\'' +
+                ", reps='" + reps + '\'' +
+                ", sets=" + sets +
+                ", restTime='" + restTime + '\'' +
+                '}';
     }
 }

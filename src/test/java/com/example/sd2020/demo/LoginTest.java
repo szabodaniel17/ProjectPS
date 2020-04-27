@@ -47,9 +47,10 @@ public class LoginTest {
     @Test
     public void testLoginFail(){
         Account account = new Account("admin","admin");
-        User result = loginService.checkLogin("admin","admin");
+
 
         when(loginRepo.checkLogin(account)).thenReturn(null);
+        User result = loginService.checkLogin("admin","admin");
         assertEquals(null,result);
     }
 

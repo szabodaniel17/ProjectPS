@@ -1,6 +1,8 @@
 package repository;
 
 import entity.Account;
+import entity.Exercise;
+import entity.FoodItem;
 import entity.User;
 
 import java.util.List;
@@ -15,9 +17,11 @@ public interface AdminInterface  {
     String addNewUser(User user, Account account);
     String updateUser(User user, Account account);
     String removeUser(String username);
-    String addFoodItems();
-    String addExercises();
-    String removeFoodItems();
-    String removeExercises();
+    String addFoodItems(FoodItem foodItem);
+    String updateFoodItems(FoodItem foodItem);
+    String addExercises(Exercise exercise);
+    String updateExercises(Exercise exercise);
+    String removeFoodItems(FoodItem foodItem);
+    String removeExercises(Exercise exercise);
 
 }

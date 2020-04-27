@@ -1,8 +1,6 @@
 package repository;
 
-import entity.Account;
-import entity.Trainer;
-import entity.User;
+import entity.*;
 
 import javax.persistence.*;
 import java.util.*;
@@ -147,21 +145,139 @@ public class AdminRepository implements AdminInterface {
         return "Account has been removed";
     }
 
+    /**
+     * In continuare avem metode de CRUD pentru FoodItem si pentru Exercise.
+     * CRUD = Create, Read, Update, Delete
+     * Astfel, putem adauga, actualiza si sterge obiecte de tip FoodItem sau Exercise
+     * din baza de date.
+     *
+     * */
 
+    public String addFoodItems(FoodItem foodItem){
 
-    public String addFoodItems(){
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        entityManager.getTransaction().begin();
+
+        FoodItem toFind = entityManager.find(FoodItem.class,foodItem);
+        if(toFind != null){
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            return "The food item already exists!";
+        }
+
+        entityManager.merge(foodItem);
+        entityManager.getTransaction().commit();
+
+        entityManager.close();
+
         return "Success!";
     }
 
-    public String addExercises(){
-        return "Success";
-    }
 
-    public String removeFoodItems(){
+    public String updateFoodItems(FoodItem foodItem){
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        entityManager.getTransaction().begin();
+
+        FoodItem toFind = entityManager.find(FoodItem.class,foodItem);
+        if(toFind == null){
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            return "The food item couldn't be found!";
+        }
+
+        entityManager.merge(foodItem);
+        entityManager.getTransaction().commit();
+
+        entityManager.close();
+
         return "Success!";
     }
 
-    public String removeExercises(){
-        return "Success";
+
+    public String addExercises(Exercise exercise){
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        entityManager.getTransaction().begin();
+
+        Exercise toFind = entityManager.find(Exercise.class,exercise);
+        if(toFind != null){
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            return "The exercise already exists!";
+        }
+
+        entityManager.merge(exercise);
+        entityManager.getTransaction().commit();
+
+        entityManager.close();
+
+        return "Success!";
+    }
+
+    public String updateExercises(Exercise exercise){
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        entityManager.getTransaction().begin();
+
+        Exercise toFind = entityManager.find(Exercise.class,exercise);
+        if(toFind == null){
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            return "The exercise doesn't exist!";
+        }
+
+        entityManager.merge(exercise);
+        entityManager.getTransaction().commit();
+
+        entityManager.close();
+
+        return "Success!";
+    }
+
+    public String removeFoodItems(FoodItem foodItem){
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        entityManager.getTransaction().begin();
+
+        FoodItem toFind = entityManager.find(FoodItem.class,foodItem);
+        if(toFind == null){
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            return "The food item couldn't be found";
+        }
+
+        entityManager.remove(foodItem);
+        entityManager.getTransaction().commit();
+
+        entityManager.close();
+
+        return "Success!";
+    }
+
+    public String removeExercises(Exercise exercise){
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        entityManager.getTransaction().begin();
+
+        Exercise toFind = entityManager.find(Exercise.class,exercise);
+        if(toFind == null){
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            return "The exercise couldn't be found!";
+        }
+
+        entityManager.remove(exercise);
+        entityManager.getTransaction().commit();
+
+        entityManager.close();
+
+        return "Success!";
     }
 }

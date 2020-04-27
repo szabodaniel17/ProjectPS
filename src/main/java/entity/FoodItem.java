@@ -12,15 +12,18 @@ import java.util.UUID;
  * stocata ca String, deoarece putem avea diferite masuri fizice, cum ar fi
  * grame, mililitrii, sau masuri simbolice precum lingurita, lingura, cana etc.
  * */
-@Entity
+@Entity(name = "fooditem")
 public class FoodItem {
 
     @Id
     private final String id;
     @Column
     private String name;
+    @Column
     private Integer kCal;
+    @Column
     private String quantity;
+    @Column
     private FoodType type;
 
     FoodItem(){
@@ -41,9 +44,7 @@ public class FoodItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FoodItem foodItem = (FoodItem) o;
-        return
-                //Objects.equals(id, foodItem.id) &&
-                Objects.equals(name, foodItem.name) &&
+        return Objects.equals(name, foodItem.name) &&
                 Objects.equals(quantity, foodItem.quantity);
     }
 
