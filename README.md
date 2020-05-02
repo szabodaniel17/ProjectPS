@@ -10,9 +10,10 @@ Problema de rezolvat o reprezinta implementarea unei aplicatii in vederea gestio
  Pentru interfata grafica cu utilizatorul vom folosi Android, iar pentru backend vom folosi librarii preimplementate din Java, precum Hibernate pentru conexiunea cu baza de date, MySQL Workbench pentru gestionarea bazei de date si a tabelelor, iar pentru interactiunea cu interfata grafica se va folosi Spring.
  
 ## Implementare
-In baza de date avem tabela de traineri si de admini precum si tabela de account-uri. Tabelele de admini si traineri sunt unificate prin tabela de user, care are o conexiune de one-to-one cu tabela de account prin campul de username.
 
-![](DBdiagram.png)
+Baza de date este descrisa cu ajutorul ORM-ului Hibernate si este alcatuita din tabela de traineri si de admini precum si tabela de account-uri. Tabelele de admini si traineri sunt unificate prin tabela de user, care are o conexiune de one-to-one cu tabela de account prin campul de username. De asemenea avem si tabela cu exercitii precum si cu alimente exemplificate in schema de mai jos.
+
+![](DBdiagram(1).png)
 
 ### Todos
 
