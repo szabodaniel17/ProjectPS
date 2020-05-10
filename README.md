@@ -11,15 +11,41 @@ Problema de rezolvat o reprezinta implementarea unei aplicatii in vederea gestio
  
 ## Implementare
 
+### Baza de date
+
 Baza de date este descrisa cu ajutorul ORM-ului Hibernate si este alcatuita din tabela de traineri si de admini precum si tabela de account-uri. Tabelele de admini si traineri sunt unificate prin tabela de user, care are o conexiune de one-to-one cu tabela de account prin campul de username. De asemenea avem si tabela cu exercitii precum si cu alimente exemplificate in schema de mai jos.
 
 ![](DBdiagram(1).png)
 
+### Structura aplicatie
+
+Aplicatia este structurata pe o arhitectura de tip layer, in care comunicarea intre module se face pe nivele, astfel ca pentru conexiunea cu baza de date avem un set de clase care sunt responsabile, iar pentru a oferi date, vom folosi clase de service care vor comunica informatiile necesare.
+Avem urmatoarea diagrama de pachete:
+* Entity - clasele care modeleaza obiectele 
+* Repository - clasele responsabile pentru operatiile pe baza de date
+* Service - clasele responsabile de logica aplicatiei (legatura cu entity e una indirecta)
+
+![](PackageDiagram.png)
+
+### Design Patterns
+
+Legatura dintre clasele pachetului Repository si cele ale pachetului Service s-a realizat cu ajutorul design pattern-ului Facade. Acest design pattern ascunde complexitatea sistemului si ofera utilizatorului o interfata prin care sa poata accesa sistemul.
+
+De asemenea, ne dorim ca in sistemul nostru, orice modificare sa fie semnalata. Astfel, daca un trainer decide sa adauge in baza de date un nou exercitiu, administratorul va fi notificat. Aceasta functionalitate a fost implementata utilizand design pattern-ul Observer. 
+
+Existenta mai multor tipuri de alimente: proteice, fibre si calorii, duce la cresterea complexitatii sistemului si a logicii acestuia. Pentru a scapa de aceasta complexitate, am implementat design pattern-ul Factory care pe baza unui tip furnizat, ne genereaza obiectul dorit.
+
+
+### Diagrama de secventa
+
+Mai jos avem o diagrama de secventa care reprezinta procesul de login al unui user. Liniile punctate verticale reprezinta lifeline-urile actorului si ale componentelor. Dreptungiurile verticale reprezinta perioada de activare a obiectului. Liniile normale reprezinta request-uri, iar cele punctate subliniaza raspunsurile sistemului.
+
+![](SequenceDiagram.png)
+
 ### Todos
 
  - Mai multe unit teste
- - Implementare clase service pentru FoodItems si Exercise
- - Implementare metode TrainerService
+ - Modificari necesare proiectarii interfetei de UI
  
  
 
