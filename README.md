@@ -24,6 +24,7 @@ Avem urmatoarea diagrama de pachete:
 * Entity - clasele care modeleaza obiectele 
 * Repository - clasele responsabile pentru operatiile pe baza de date
 * Service - clasele responsabile de logica aplicatiei (legatura cu entity e una indirecta)
+* Tests - clasele ce contin unit teste pentru verificarea functionalitatii proiectului
 
 ![](PackageDiagram.png)
 
@@ -42,11 +43,32 @@ Mai jos avem o diagrama de secventa care reprezinta procesul de login al unui us
 
 ![](SequenceDiagram.png)
 
-### Todos
+### Interfata utilizator 
 
- - Mai multe unit teste
- - Modificari necesare proiectarii interfetei de UI
- 
+Pentru a interactiona cu utilizatorul am implementat o interfata web care functioneaza pe baza a trei limbaje distincte: HTML,CSS,JavaScript. Acestea trei asigura comunicarea utilizatorului cu backend-ul dezvoltat in Java. Partea de HTML este responsabila pentru ceea ce vedem pe pagina din browser, CSS-ul ne ajuta sa dam o anumita forma paginii, iar JavaScript-ul ne ajuta sa descriem functionalitatile paginii precum si comunicarea cu aplicatia Java.
+
+## Manual de utilizare
+1. Se lanseaza in executie aplicatia din Java apeland metoda main din DemoApplication
+2. Se deschide pagina index.html din cadrul proiectului Project PS WEB.
+3. Se poate naviga prin pagina utilizand mouse-ul, precum si butoanele din bara de sus.
+4. In cazul trainerilor si a adminului, este un buton de login care ne redirecteaza spre pagina cu formularul.
+5. Dupa introducerea credentialelor vom fi redirectati spre pagina corespunzatoare fiecaruia.
+6. a. Pentru trainer, putem genera 2 rapoarte, putem vedea exercitiile si fooditems, dar putem si adauga fooditems si exercitii.
+   b. Pentru admin, putem vedea utilizatorii si conturile lor cu parolele, putem adauga si sterge utilizatori,exercitii si fooditems.
+7. Se poate reveni oricand la pagina principala prin apasarea pe titlul paginii, "The GYM'.
+
+
+
+
+## Concluzii
+ Proiectul implementeaza o parte incipienta a unei posibile dezvoltari viitoare mult mai complexe, dar pune la dispozitie o baza usor de extins si de intretinut. Structura bazata pe layere precum si utilizarea de Design Pattern-uri face aplicatia usor de imbunatatit, de extins si intretinut, intrucat modulele functioneaza independent si pot fi inlocuite fara a fi necesare mari modificari. 
+ Posibile extinderi ulterioare:
+ * adaugarea unui al 3-lea tip de useri, utilizatori normali
+ * permiterea trainerilor sa selecteze din tabel elemente individuale pentru a creea planuri personalizate
+ * diferite tipuri de cautari pe baza de id, in eventuala populare mare a bazei de date cu utilizatori
+ * trainerii sa aiba acces sa stearga exercitii si fooditems
+ * diferite extinderi pentru interactionarea cu userii
+ * extinderea pe mai multe platforme (Android,IOS etc.)
  
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
