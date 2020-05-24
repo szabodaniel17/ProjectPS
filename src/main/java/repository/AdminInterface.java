@@ -13,7 +13,11 @@ import java.util.List;
  */
 public interface AdminInterface  {
 
+    public static AdminInterface getInstance(){
+        return new AdminRepository();
+    }
     List<Account> getAllAccounts();
+    List<User> getAllUsers();
     String addNewUser(User user, Account account);
     String updateUser(User user, Account account);
     String removeUser(String username);

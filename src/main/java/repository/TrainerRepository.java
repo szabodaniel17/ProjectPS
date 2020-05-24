@@ -73,7 +73,7 @@ public class TrainerRepository implements TrainerInterface {
 
         entityManager.getTransaction().begin();
 
-        FoodItem toFind = entityManager.find(FoodItem.class,foodItem);
+        FoodItem toFind = entityManager.find(FoodItem.class,foodItem.getId());
         if(toFind != null){
             entityManager.getTransaction().commit();
             entityManager.close();
@@ -94,7 +94,7 @@ public class TrainerRepository implements TrainerInterface {
 
         entityManager.getTransaction().begin();
 
-        Exercise toFind = entityManager.find(Exercise.class,exercise);
+        Exercise toFind = entityManager.find(Exercise.class,exercise.getId());
         if(toFind != null){
             entityManager.getTransaction().commit();
             entityManager.close();

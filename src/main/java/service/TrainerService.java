@@ -1,19 +1,27 @@
 package service;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfWriter;
 import entity.Exercise;
 import entity.FoodItem;
+import entity.FoodType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import repository.TrainerInterface;
 
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@RestController
 public class TrainerService implements TrainerManagement{
 
-    private TrainerInterface trainerRepo;
+    private TrainerInterface trainerRepo = TrainerInterface.getInstance();
     private Exercise exercise;
     private List<Exercise> exercises;
     private List<FoodItem> foodItems;
@@ -31,12 +39,21 @@ public class TrainerService implements TrainerManagement{
     /**
      * Avem entry point pentru adaugarea unui FoodItem in baza de date.
      *
-     * @param foodItem
+     * @param
      * @return
      */
 
-    @GetMapping("/addFoodItem")
-    public String addFoodItems(FoodItem foodItem){
+    @PostMapping("/addFoodItem")
+    @CrossOrigin(origins = "*")
+    public String addFoodItems(String name,Integer kCal,String quantity,String type){
+        FoodItem foodItem = new FoodItem();
+        if(type == "PROTEIN"){
+            foodItem = new FoodItem(name,kCal,quantity, FoodType.PROTEIN);
+        }else if(type == "FIBER"){
+            foodItem = new FoodItem(name,kCal,quantity, FoodType.FIBER);
+        }else if(type== "CARBS"){
+            foodItem = new FoodItem(name,kCal,quantity, FoodType.CARBS);
+        }
         String result;
         result = trainerRepo.addFoodItems(foodItem);
         return result;
@@ -46,11 +63,13 @@ public class TrainerService implements TrainerManagement{
     /**
      * Entry point pentru adaugarea unui exercitiu in baza de date
      *
-     * @param exercise
+     *
      * @return
      */
-    @GetMapping("/addExercises")
-    public String addExercises(Exercise exercise){
+    @PostMapping("/addTrainerExercises")
+    @CrossOrigin(origins = "*")
+    public String addExercises(String name,String reps,Integer sets,String restTime){
+        Exercise exercise = new Exercise(name,reps,sets,restTime);
         String result;
         result = trainerRepo.addExercises(exercise);
         return result;
@@ -63,6 +82,7 @@ public class TrainerService implements TrainerManagement{
      */
 
     @GetMapping("/getAllFoodItems")
+    @CrossOrigin(origins = "*")
     public List<FoodItem> getAllFoodItems(){
         this.foodItems = trainerRepo.getAllFoodItems();
 
@@ -70,10 +90,61 @@ public class TrainerService implements TrainerManagement{
     }
 
     @GetMapping("/getAllExercises")
+    @CrossOrigin(origins = "*")
     public List<Exercise> getAllExercises(){
         this.exercises = trainerRepo.getAllExercises();
 
         return this.exercises;
+    }
+
+    @GetMapping("/generateFoodReport")
+    @CrossOrigin(origins = "*")
+    public String generateFoodReport() throws FileNotFoundException, DocumentException {
+        String result = "succes";
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream("FoodReport.pdf"));
+
+        document.open();
+        Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+        Chunk chunk = new Chunk("Diet plan", font);
+        document.add(chunk);
+
+        for(FoodItem f:foodItems){
+            Paragraph p = new Paragraph(f.toString());
+            document.add(p);
+        }
+
+        document.close();
+
+        if(document == null){
+            return "Fail";
+        }
+        return result;
+    }
+
+    @GetMapping("/generateExerciseReport")
+    @CrossOrigin(origins = "*")
+    public String generateExerciseReport() throws FileNotFoundException, DocumentException {
+        String result = "succes";
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream("ExerciseReport.pdf"));
+
+        document.open();
+        Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+        Chunk chunk = new Chunk("Exercise plan", font);
+        document.add(chunk);
+
+        for(Exercise f: exercises){
+            Paragraph p = new Paragraph(f.toString());
+            document.add(p);
+        }
+
+        document.close();
+
+        if(document == null){
+            return "Fail";
+        }
+        return result;
     }
 
     /**

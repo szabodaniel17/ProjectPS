@@ -76,6 +76,10 @@ public class Exercise {
         this.restTime = restTime;
     }
 
+    public String getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "Exercise{" +

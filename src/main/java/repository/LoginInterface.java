@@ -12,6 +12,9 @@ public interface LoginInterface {
      * Se va trimite un Account care contine username si parola si se va astepta ca output un user,
      * admin sau trainer.
      */
+    public static LoginInterface getInstance(){
+        return new LoginRepository();
+    }
      User checkLogin(Account account);
 
 }

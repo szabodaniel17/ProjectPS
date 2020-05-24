@@ -11,6 +11,9 @@ import java.util.List;
  */
 public interface TrainerInterface {
 
+    public static TrainerInterface getInstance(){
+        return new TrainerRepository();
+    }
     List<FoodItem> getAllFoodItems();
     List<Exercise> getAllExercises();
     String addFoodItems(FoodItem foodItem);

@@ -40,6 +40,34 @@ public class AdminRepository implements AdminInterface {
         return accounts;
     }
 
+    public List<User> getAllUsers(){
+
+        ArrayList<User> accounts = new ArrayList<>();
+        /**
+         * Pentru fiecare metoda, vom crea un entityManager pentru a gestiona
+         * operatiile pe baza de date, instantiat din EntityManagerFactory
+         */
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        entityManager.getTransaction().begin();
+        /**
+         * Se face cast la ArrayList si vom face append la fiecare valoare gasita
+         * in tabela accounts in lista accounts.
+         */
+        accounts = (ArrayList<User>) entityManager.createQuery("SELECT a FROM user a").getResultList();
+
+        /**
+         * Dupa fiecare query pe baza de date, vom face un comit pentru a realiza operatia,
+         * iar dupa ce am terminat operatiile, vom inchide tranzactia.
+         */
+        entityManager.getTransaction().commit();
+        entityManager.close();
+
+        if(accounts == null)
+            return new ArrayList<User>();
+        return accounts;
+    }
+
     /**
      * Aceasta metoda este folosita pentru a adauga un user in baza de date.
      * Account-ul va fi cautat dupa username in baza de date. Daca il gasim,
@@ -159,7 +187,7 @@ public class AdminRepository implements AdminInterface {
 
         entityManager.getTransaction().begin();
 
-        FoodItem toFind = entityManager.find(FoodItem.class,foodItem);
+        FoodItem toFind = entityManager.find(FoodItem.class,foodItem.getId());
         if(toFind != null){
             entityManager.getTransaction().commit();
             entityManager.close();
@@ -181,7 +209,7 @@ public class AdminRepository implements AdminInterface {
 
         entityManager.getTransaction().begin();
 
-        FoodItem toFind = entityManager.find(FoodItem.class,foodItem);
+        FoodItem toFind = entityManager.find(FoodItem.class,foodItem.getId());
         if(toFind == null){
             entityManager.getTransaction().commit();
             entityManager.close();
@@ -203,7 +231,7 @@ public class AdminRepository implements AdminInterface {
 
         entityManager.getTransaction().begin();
 
-        Exercise toFind = entityManager.find(Exercise.class,exercise);
+        Exercise toFind = entityManager.find(Exercise.class,exercise.getId());
         if(toFind != null){
             entityManager.getTransaction().commit();
             entityManager.close();
@@ -224,7 +252,7 @@ public class AdminRepository implements AdminInterface {
 
         entityManager.getTransaction().begin();
 
-        Exercise toFind = entityManager.find(Exercise.class,exercise);
+        Exercise toFind = entityManager.find(Exercise.class,exercise.getId());
         if(toFind == null){
             entityManager.getTransaction().commit();
             entityManager.close();
@@ -245,7 +273,7 @@ public class AdminRepository implements AdminInterface {
 
         entityManager.getTransaction().begin();
 
-        FoodItem toFind = entityManager.find(FoodItem.class,foodItem);
+        FoodItem toFind = entityManager.find(FoodItem.class,foodItem.getId());
         if(toFind == null){
             entityManager.getTransaction().commit();
             entityManager.close();
@@ -266,7 +294,7 @@ public class AdminRepository implements AdminInterface {
 
         entityManager.getTransaction().begin();
 
-        Exercise toFind = entityManager.find(Exercise.class,exercise);
+        Exercise toFind = entityManager.find(Exercise.class,exercise.getId());
         if(toFind == null){
             entityManager.getTransaction().commit();
             entityManager.close();

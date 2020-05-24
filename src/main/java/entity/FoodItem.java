@@ -26,7 +26,7 @@ public class FoodItem {
     @Column
     private FoodType type;
 
-    FoodItem(){
+    public FoodItem(){
         id = UUID.randomUUID().toString();
     }
 
@@ -83,6 +83,10 @@ public class FoodItem {
 
     public void setType(FoodType type) {
         this.type = type;
+    }
+
+    public String getId() {
+        return id;
     }
 
     @Override
